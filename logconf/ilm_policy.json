@@ -1,0 +1,24 @@
+// 索引30天生命周期
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age" : "0ms",
+        "actions": {
+          "rollover": {
+            "max_size": "50gb",
+            "max_age": "30d"
+          }
+        }
+      },
+      "delete": {
+        "min_age": "7d", // 老索引超过rollover后的最小存活时间
+        "actions": {
+          "delete": {
+            "delete_searchable_snapshot" : true // 删除相关的快照
+          }
+        }
+      }
+    }
+  }
+}

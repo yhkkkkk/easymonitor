@@ -9,10 +9,10 @@ services:
       - "8080:8080"
       - "8090:8090"
     volumes:
-      - "./program:/program"
+      - "./programe:/programe"
       - "./logs:/logs"
     restart: always
-    entrypoint: "sh /program/start_node_exporter.sh"
+    entrypoint: "sh /programe/start_node_exporter.sh"
 
 
   prometheus:
@@ -73,8 +73,8 @@ services:
     ports:
       - "16060:16060"
     volumes:
-      - "./program:/program"
-    working_dir: /program
+      - "./programe:/programe"
+    working_dir: /programe
   mydb:
     restart: always
     image: amd64/mysql:latest

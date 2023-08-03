@@ -1,0 +1,50 @@
+[Server]
+    Port = ":16060"
+    ReadTimeout = 30 # 读取超时时长
+    WriteTimeout = 30 # 写入超时时长
+    MaxHeaderBytes = 600 # 最大的header大小，二进制位长度
+    HttpTimeout = 300
+    ReadHeaderTimeout = 30
+    EnableLimit = "true"
+    LimitSize = 10 # 最大限流次数
+
+[Redis]
+    Addr = "192.168.11.201"
+    Port = 6379
+    Password = "Hitales2019!@#<*>"
+    Db = 10
+    ReadTimeout = 30
+    WriteTimeout = 30
+    DialTimeout = 30
+    PoolSize = 20
+    MinIdleConns = 5
+    MaxRetries = 3
+    [Redis.Expire]
+        Days = 1
+
+[Elasticsearch]
+    Addr = ["http://192.168.11.201:10200"]
+    Username = "elastic"
+    Password = "wxQY2NxAakbK613s9JS6"
+    MaxRetries = 3
+    ConnTimeout = 30
+    DebugEnable = "true"
+    Version = "v7"
+
+# 任务队列和协程池配置
+[Pool]
+    GorountineSize = 1500 # 协程池大小
+    AlertQueueSize = 1500 # 任务队列大小
+    MaxBlockingTasks = 200 # 阻塞任务数
+    NonBlock = "true" # 是否开启非阻塞
+
+# 飞书告警webhook配置
+[Alert]
+    AlertUrl = "https://open.feishu.cn/open-apis/bot/v2/hook/f56febd5-922a-4c8e-86b0-694c402311de" # 飞书告警webhook
+    [Alert.Token]
+        Url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/" # 获取飞书tenant_access_token
+        Secret = "2b8CIxx0OPO4t9cncUudHg" # 飞书tenant_access_token secret
+
+[Exclude]
+    Env = ["test2"] # 告警可忽略环境
+    Log = ["hh_backend_ihospital_datacenter_changhai"]

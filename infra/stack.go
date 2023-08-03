@@ -9,12 +9,12 @@ import (
 	"strings"
 )
 
-// Frame represents a program counter inside a stack frame.
+// Frame represents a programe counter inside a stack frame.
 // For historical reasons if Frame is interpreted as a uintptr
-// its value represents the program counter + 1.
+// its value represents the programe counter + 1.
 type Frame uintptr
 
-// pc returns the program counter for this frame;
+// pc returns the programe counter for this frame;
 // multiple frames may have the same PC value.
 func (f Frame) pc() uintptr { return uintptr(f) - 1 }
 
@@ -136,7 +136,7 @@ func (st StackTrace) formatSlice(s fmt.State, verb rune) {
 	io.WriteString(s, "]")
 }
 
-// stack represents a stack of program counters.
+// stack represents a stack of programe counters.
 type stack []uintptr
 
 func (s *stack) Format(st fmt.State, verb rune) {
