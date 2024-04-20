@@ -24,10 +24,15 @@
 
 ## 技术栈
 go 1.19.5
+
 elasticsearch 7.12
+
 filebeat 7.12
+
 logstash 7.12
+
 kibana 7.12
+
 redis 4.0.1
 
 filebeat和logstash的基础配置放在logconf文件夹下面
