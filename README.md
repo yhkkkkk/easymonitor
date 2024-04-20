@@ -19,7 +19,7 @@
 ├── logconf // 放置主机上的日志采集配置文件，filebeat.yml 中会引入这个文件夹下的配置规则做不同的采集策略
 ├── program // 放置alertserver项目编译好的二进制文件
 ├── utils // 一些redis、es、time工具代码
-└── alerterserver // 模拟自研日志报警系统代码
+└── alertserver // 模拟自研日志报警系统代码
 ```
 
 ## 告警样例 (基于飞书群机器人 后续会改造成基于自定义消息)
