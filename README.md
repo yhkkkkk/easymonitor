@@ -37,9 +37,9 @@ redis 4.0.1
 
 filebeat和logstash的基础配置放在logconf文件夹下面
 
-## 告警样例 (基于飞书群机器人 后续会改造成基于自定义消息)
+## 告警样例 
 
-飞书通知
+飞书通知 (基于飞书群机器人 后续会改造成基于自定义消息)
 
 ![image](https://github.com/yhkkkkk/easymonitor/assets/125347894/8df49c70-57e9-4656-887e-3dd4a0761066)
 
