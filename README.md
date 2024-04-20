@@ -1,7 +1,5 @@
 ## 监控系统架构
 
-[](https://github.com/HobbyBear/easymonitor/tree/main#%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
-
 ![image](https://github.com/yhkkkkk/easymonitor/assets/125347894/4cea2a5b-5f33-483d-a7e2-453502658b1b)
 
 ## 目录结构
