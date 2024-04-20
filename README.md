@@ -39,7 +39,7 @@ mv alertserver program/
 
 感谢蓝胖子大佬的项目给予的灵感 该程序绝大部分是在基础上做的二开
 
-https://github.com/HobbyBear/easymonitor/tree/main
+https://github.com/HobbyBear/easymonitor
 
 也感谢prom-elastic-alert这个项目给予的部分灵感
 
