@@ -53,7 +53,7 @@ filebeat和logstash的基础配置放在logconf文件夹下面
 
 ```shell
 cd easymonitor
-go build -0 alertserver main.go
+go build -o alertserver main.go
 mv alertserver program/
 使用supervisor启动 后续会改为容器化 supervisor配置放在了logconf目录下面
 ```
