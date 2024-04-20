@@ -9,9 +9,9 @@
     LimitSize = 10 # 最大限流次数
 
 [Redis]
-    Addr = "192.168.11.201"
+    Addr = "xxxxx"
     Port = 6379
-    Password = "Hitales2019!@#<*>"
+    Password = "xxxxx"
     Db = 10
     ReadTimeout = 30
     WriteTimeout = 30
@@ -23,9 +23,9 @@
         Days = 1
 
 [Elasticsearch]
-    Addr = ["http://192.168.11.201:10200"]
-    Username = "elastic"
-    Password = "wxQY2NxAakbK613s9JS6"
+    Addr = ["http://xxxxx:10200"]
+    Username = "xxxxxx"
+    Password = "xxxxxx"
     MaxRetries = 3
     ConnTimeout = 30
     DebugEnable = "true"
@@ -40,10 +40,10 @@
 
 # 飞书告警webhook配置
 [Alert]
-    AlertUrl = "https://open.feishu.cn/open-apis/bot/v2/hook/f56febd5-922a-4c8e-86b0-694c402311de" # 飞书告警webhook
+    AlertUrl = "https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxx" # 飞书告警webhook
     [Alert.Token]
         Url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/" # 获取飞书tenant_access_token
-        Secret = "2b8CIxx0OPO4t9cncUudHg" # 飞书tenant_access_token secret
+        Secret = "xxxxxxxxxx" # 飞书tenant_access_token secret
 
 [Exclude]
     Env = ["test2"] # 告警可忽略环境
