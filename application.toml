@@ -47,4 +47,4 @@
 
 [Exclude]
     Env = ["test2"] # 告警可忽略环境
-    Log = ["hh_backend_ihospital_datacenter_changhai"]
+    Log = [""]
