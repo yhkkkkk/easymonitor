@@ -6,10 +6,10 @@ filebeat.inputs:
     enabled: true
     encoding: utf-8
     paths:
-      - /data/logs/supervisor/huihao/hh_backend_ihospital_spi_impl_syrmyy.log*
+      - /data/logs/supervisor/xxx/backend_ihospital_spi_impl_syrmyy.log*
     fields:
       env: "test2"
-      log_type: "hh_backend_ihospital_spi_impl_syrmyy"
+      log_type: "backend_ihospital_spi_impl_syrmyy"
     multiline.type: pattern
     multiline.pattern: '^\d{4}'
     multiline.negate: true
