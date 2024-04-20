@@ -23,7 +23,7 @@
 ```
 
 ## 技术栈
-go 1.19.5
+go 1.19.5 + ants协程池
 
 elasticsearch 7.12
 
