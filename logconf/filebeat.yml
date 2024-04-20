@@ -1,25 +1,103 @@
-max_bytes: 3145728
-max_procs: 1
-#setup.template.name: "filebeat"
-#setup.template.pattern: "filebeat-*"
-#setup.ilm.enabled: false
-filebeat.config.inputs:
-  enabled: true
-  path: /logconf/*.yml
+# 日志格式
+# 2024-04-20 21:30:00.002  INFO 29916 --- [DefaultExecutor] c.alicp.jetcache.support.StatInfoLogger  : jetcache stat from 2024-04-20 21:15:00,001 to 2024-04-20 21:30:00,001
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    encoding: utf-8
+    paths:
+      - /data/logs/supervisor/huihao/hh_backend_ihospital_spi_impl_syrmyy.log*
+    fields:
+      env: "test2"
+      log_type: "hh_backend_ihospital_spi_impl_syrmyy"
+    multiline.type: pattern
+    multiline.pattern: '^\d{4}'
+    multiline.negate: true
+    multiline.match: after
+    multiline.max_lines: 1000 # 最多合并1000行
+    multiline.timeout: 30s # 30s无响应则取消合并
+    max_procs: 4
+    ignore_older: 168h
+    max_bytes: 10485760
+    scan_frequency: 10s
+    tail_files: false
+    reload.enabled: true
+    reload.period: 10s
+
+logging.level: debug
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+setup.template.settings:
+  index.number_of_shards: 1
+
+# 设置索引模板名称 该模版应用于所以以hh_backend开头的索引
+setup.template.name: "test_jkzl_lyxh_backend"
+setup.template.pattern: "test_jkzl_lyxh_backend-*"
+setup.template.enabled: true
+setup.template.overwrite: false
+
+setup.ilm.enabled: true
+setup.ilm.policy_name: "test_monthly_policy"
+setup.ilm.rollover_alias: "test_jkzl_lyxh_backend-alias"
+# 设置索引按照每个月第一天显示
+setup.ilm.pattern: "{now/M}-000001"
 
 output.logstash:
-  hosts: ["logstash:5044"]
+  hosts: ["127.0.0.1:5044"]
 
-#output.elasticsearch:
-#  hosts: [ "http://192.168.17.150:9200" ]
-#  index: "filebeat-%{[fields.log_type]}-%{+yyyy.MM.dd}"
-#
-#setup.kibana:
-#  host: "http://192.168.17.150:5601"
-#setup.template.enabled: true
-logging.level: info
-logging.to_files: true
-logging.files:
-  path: /logs/filebeat
-  name: filebeat
-  keepfiles: 7
+processors:
+  - script:
+      lang: javascript
+      id: format_time
+      tag: enable
+      source: >
+        function process(event) {
+            // 提取时间
+            var str= event.Get("message");
+            var time =str.split(" ").slice(0,2).join(" ");
+            event.Put("format_time", time);
+            // 提取错误类型
+            var error = /(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\s+(\w+) \d+ --- \[.*?\] .*? : (.*?)(?=\n|$)/;
+            var error_type = str.match(error);
+            if (error_type) {
+              event.Put("grep_level", error_type[2]);
+              event.Put("log_type", error_type[3]);
+            } else {
+              event.Put("grep_level", "null");
+              event.Put("log_type", "null");
+            }
+        }
+  - timestamp:
+      field: format_time
+      # target_field: log_time
+      timezone: Asia/Shanghai
+      #timezone: UTC
+      layouts:
+        - '2006-01-02 15:04:05.000'
+      test:
+        - '2024-02-23 18:32:00.480'
+      parse_timezone: true
+      overwrite: true
+  - add_host_metadata: ~
+  - add_locale: ~
+  # - include_fields:
+  #     fields: ["field1", "field2"]
+  - drop_fields:
+      fields: ["input", "container",  "agent", "event", "ecs", "format_time"]
+  # - add_fields:
+  #     target: 'custom'
+  #     fields:
+  #       field1: 'value1'
+  #       field2: 'value2'
+  # 解析json格式的日志(暂时没用到)
+  # - decode_json_fields:
+  #     fields: ["message"]
+  #     target: "json"
+
+# 设置内存中的事件数量
+filebeat.spool_size: 4096
+# 设置每个harvester的读取缓冲区大小
+filebeat.harvester_buffer_size: 16384
