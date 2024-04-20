@@ -21,6 +21,9 @@
 ├── utils // 一些redis、es、time工具代码
 └── alerterserver // 模拟自研日志报警系统代码
 ```
+## 告警样例
+![image](https://github.com/yhkkkkk/easymonitor/assets/125347894/8df49c70-57e9-4656-887e-3dd4a0761066)
+
 
 ## 启动步骤
 
