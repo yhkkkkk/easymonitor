@@ -1,12 +1,14 @@
 [Server]
+    Mode = "release" # 默认debug
     Port = ":16060"
     ReadTimeout = 30 # 读取超时时长
     WriteTimeout = 30 # 写入超时时长
-    MaxHeaderBytes = 600 # 最大的header大小，二进制位长度
+    MaxHeaderBytes = 20 # 最大的header大小，二进制位长度
     HttpTimeout = 300
-    ReadHeaderTimeout = 30
-    EnableLimit = "true"
-    LimitSize = 10 # 最大限流次数
+    EnableLimit = true
+    FillInterval = 50 # 填充一个令牌需要的时间间隔,毫秒
+    CapaCity = 100 # 桶容量
+    LimitSize = 40 # 最大限流次数(老版本使用 新版本丢弃)
 
 [Redis]
     Addr = "xxxxx"
@@ -28,7 +30,7 @@
     Password = "xxxxxx"
     MaxRetries = 3
     ConnTimeout = 30
-    DebugEnable = "true"
+    DebugEnable = true
     Version = "v7"
 
 # 任务队列和协程池配置
@@ -36,7 +38,7 @@
     GorountineSize = 1500 # 协程池大小
     AlertQueueSize = 1500 # 任务队列大小
     MaxBlockingTasks = 200 # 阻塞任务数
-    NonBlock = "true" # 是否开启非阻塞
+    NonBlock = true # 是否开启非阻塞
 
 # 飞书告警webhook配置
 [Alert]
@@ -46,5 +48,16 @@
         Secret = "xxxxxxxxxx" # 飞书tenant_access_token secret
 
 [Exclude]
-    Env = ["test2"] # 告警可忽略环境
-    Log = [""]
+    AlertGroup = false # 是否开启告警分组
+    Env = [
+        "test1",
+        "test2",
+    ] # 告警可忽略环境
+    Nor = [
+    ]
+    Ctx = [
+        "增量数据失败",
+        "数据同步失败",
+        "JWT decode error:",
+        "jetcache(RedisCache) PUT error. key=[-]",
+    ]
